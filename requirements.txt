@@ -1,0 +1,8 @@
+accelerate==0.16.0
+bitsandbytes==0.37.0
+git+https://github.com/huggingface/transformers@c836f77
+gradio==3.18.0
+huggingface-hub==0.12.0
+Pillow==9.4.0
+torch==1.13.1
+torchvision==0.14.1

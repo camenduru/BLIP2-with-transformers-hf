@@ -1,10 +1,10 @@
 ---
-title: BLIP2
+title: BLIP2 with transformers
 emoji: 🌖
 colorFrom: blue
 colorTo: pink
 sdk: gradio
-sdk_version: 3.17.0
+sdk_version: 3.18.0
 app_file: app.py
 pinned: false
 license: bsd-3-clause
