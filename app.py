@@ -229,6 +229,7 @@ with gr.Blocks(css='style.css') as demo:
         length_penalty,
         rep_penalty,
         history_orig,
+        history_qa,
     ]
     chat_outputs = [
         chatbot,
