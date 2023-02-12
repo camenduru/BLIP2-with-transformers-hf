@@ -16,14 +16,14 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 MODEL_ID_OPT_6_7B = 'Salesforce/blip2-opt-6.7b'
 MODEL_ID_FLAN_T5_XXL = 'Salesforce/blip2-flan-t5-xxl'
 model_dict = {
-    MODEL_ID_OPT_6_7B: {
-        'processor':
-        AutoProcessor.from_pretrained(MODEL_ID_OPT_6_7B),
-        'model':
-        Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_OPT_6_7B,
-                                                      device_map='auto',
-                                                      load_in_8bit=True),
-    },
+    #MODEL_ID_OPT_6_7B: {
+    #    'processor':
+    #    AutoProcessor.from_pretrained(MODEL_ID_OPT_6_7B),
+    #    'model':
+    #    Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_OPT_6_7B,
+    #                                                  device_map='auto',
+    #                                                  load_in_8bit=True),
+    #},
     MODEL_ID_FLAN_T5_XXL: {
         'processor':
         AutoProcessor.from_pretrained(MODEL_ID_FLAN_T5_XXL),
@@ -148,11 +148,13 @@ with gr.Blocks(css='style.css') as demo:
             model_id_caption = gr.Dropdown(
                 label='Model ID for image captioning',
                 choices=[MODEL_ID_OPT_6_7B, MODEL_ID_FLAN_T5_XXL],
-                value=MODEL_ID_OPT_6_7B)
+                value=MODEL_ID_FLAN_T5_XXL,
+                interactive=False)
             model_id_chat = gr.Dropdown(
                 label='Model ID for VQA',
                 choices=[MODEL_ID_OPT_6_7B, MODEL_ID_FLAN_T5_XXL],
-                value=MODEL_ID_FLAN_T5_XXL)
+                value=MODEL_ID_FLAN_T5_XXL,
+                interactive=False)
         sampling_method = gr.Radio(
             label='Text Decoding Method',
             choices=['Beam search', 'Nucleus sampling'],
