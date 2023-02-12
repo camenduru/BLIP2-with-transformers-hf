@@ -258,11 +258,11 @@ with gr.Blocks(css='style.css') as demo:
         queue=False,
     )
     image.change(
-        fn=lambda: ('', '', [], []),
+        fn=lambda: ('', [], [], []),
         inputs=None,
         outputs=[
-            chatbot,
             caption_output,
+            chatbot,
             history_orig,
             history_qa,
         ],
