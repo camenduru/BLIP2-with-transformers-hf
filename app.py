@@ -50,7 +50,10 @@ def generate_caption(model_id: str, image: PIL.Image.Image,
         temperature=temperature,
         length_penalty=length_penalty,
         repetition_penalty=repetition_penalty,
-        max_length=50)
+        max_length=50,
+        min_length=1,
+        num_beams=5,
+        top_p=0.9)
     result = processor.batch_decode(generated_ids,
                                     skip_special_tokens=True)[0].strip()
     return result
@@ -70,7 +73,11 @@ def answer_question(model_id: str, image: PIL.Image.Image, text: str,
                                    'Nucleus sampling',
                                    temperature=temperature,
                                    length_penalty=length_penalty,
-                                   repetition_penalty=repetition_penalty)
+                                   repetition_penalty=repetition_penalty,
+                                   max_length=30,
+                                   min_length=1,
+                                   num_beams=5,
+                                   top_p=0.9)
     result = processor.batch_decode(generated_ids,
                                     skip_special_tokens=True)[0].strip()
     return result
