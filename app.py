@@ -227,6 +227,7 @@ with gr.Blocks(css='style.css') as demo:
             rep_penalty,
         ],
         outputs=caption_output,
+        api_name='caption',
     )
 
     chat_inputs = [
@@ -254,6 +255,7 @@ with gr.Blocks(css='style.css') as demo:
         fn=chat,
         inputs=chat_inputs,
         outputs=chat_outputs,
+        api_name='chat',
     )
     clear_chat_button.click(
         fn=lambda: ('', [], [], []),
@@ -265,6 +267,7 @@ with gr.Blocks(css='style.css') as demo:
             history_qa,
         ],
         queue=False,
+        api_name='clear',
     )
     image.change(
         fn=lambda: ('', [], [], []),
@@ -278,4 +281,4 @@ with gr.Blocks(css='style.css') as demo:
         queue=False,
     )
 
-demo.queue(max_size=10).launch()
+demo.queue(max_size=10, api_open=False).launch()
