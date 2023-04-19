@@ -207,19 +207,21 @@ with gr.Blocks(css='style.css') as demo:
     with gr.Row():
         with gr.Column():
             with gr.Box():
-                gr.Markdown('Image Captioning')
                 caption_button = gr.Button(value='Caption it!')
-                caption_output = gr.Textbox(label='Caption Output')
+                caption_output = gr.Textbox(
+                    label='Caption Output',
+                    show_label=False).style(container=False)
         with gr.Column():
             with gr.Box():
-                gr.Markdown('VQA Chat')
-                vqa_input = gr.Text(label='Chat Input', max_lines=1)
+                chatbot = gr.Chatbot(label='VQA Chat')
+                history_orig = gr.State(value=[])
+                history_qa = gr.State(value=[])
+                vqa_input = gr.Text(label='Chat Input',
+                                    show_label=False,
+                                    max_lines=1).style(container=False)
                 with gr.Row():
                     clear_chat_button = gr.Button(value='Clear')
                     chat_button = gr.Button(value='Submit')
-                chatbot = gr.Chatbot(label='Chat Output')
-                history_orig = gr.State(value=[])
-                history_qa = gr.State(value=[])
 
     gr.Examples(
         examples=examples,
