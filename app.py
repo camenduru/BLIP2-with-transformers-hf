@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import string
 
 import gradio as gr
@@ -9,30 +10,42 @@ import PIL.Image
 import torch
 from transformers import AutoProcessor, Blip2ForConditionalGeneration
 
-DESCRIPTION = '# BLIP-2'
+DESCRIPTION = '# [BLIP-2](https://github.com/salesforce/LAVIS/tree/main/projects/blip2)'
+
+if (SPACE_ID := os.getenv('SPACE_ID')) is not None:
+    DESCRIPTION += f'\n<p>For faster inference without waiting in queue, you may duplicate the space and upgrade to GPU in settings. <a href="https://huggingface.co/spaces/{SPACE_ID}?duplicate=true"><img style="display: inline; margin-top: 0em; margin-bottom: 0em" src="https://bit.ly/3gLdBN6" alt="Duplicate Space" /></a></p>'
+
+if torch.cuda.is_available():
+    DESCRIPTION += '\n<p>Running on GPU 🔥</p>'
+else:
+    DESCRIPTION += '\n<p>Running on CPU 🥶 This demo does not work on CPU.'
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
 MODEL_ID_OPT_6_7B = 'Salesforce/blip2-opt-6.7b'
 MODEL_ID_FLAN_T5_XXL = 'Salesforce/blip2-flan-t5-xxl'
-model_dict = {
-    #MODEL_ID_OPT_6_7B: {
-    #    'processor':
-    #    AutoProcessor.from_pretrained(MODEL_ID_OPT_6_7B),
-    #    'model':
-    #    Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_OPT_6_7B,
-    #                                                  device_map='auto',
-    #                                                  load_in_8bit=True),
-    #},
-    MODEL_ID_FLAN_T5_XXL: {
-        'processor':
-        AutoProcessor.from_pretrained(MODEL_ID_FLAN_T5_XXL),
-        'model':
-        Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_FLAN_T5_XXL,
-                                                      device_map='auto',
-                                                      load_in_8bit=True),
+
+if torch.cuda.is_available():
+    model_dict = {
+        #MODEL_ID_OPT_6_7B: {
+        #    'processor':
+        #    AutoProcessor.from_pretrained(MODEL_ID_OPT_6_7B),
+        #    'model':
+        #    Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_OPT_6_7B,
+        #                                                  device_map='auto',
+        #                                                  load_in_8bit=True),
+        #},
+        MODEL_ID_FLAN_T5_XXL: {
+            'processor':
+            AutoProcessor.from_pretrained(MODEL_ID_FLAN_T5_XXL),
+            'model':
+            Blip2ForConditionalGeneration.from_pretrained(MODEL_ID_FLAN_T5_XXL,
+                                                          device_map='auto',
+                                                          load_in_8bit=True),
+        }
     }
-}
+else:
+    model_dict = {}
 
 
 def generate_caption(model_id: str, image: PIL.Image.Image,
@@ -281,4 +294,4 @@ with gr.Blocks(css='style.css') as demo:
         queue=False,
     )
 
-demo.queue(max_size=10, api_open=False).launch()
+demo.queue(api_open=False, max_size=10).launch()
