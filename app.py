@@ -14,11 +14,8 @@ DESCRIPTION = '# [BLIP-2](https://github.com/salesforce/LAVIS/tree/main/projects
 
 if (SPACE_ID := os.getenv('SPACE_ID')) is not None:
     DESCRIPTION += f'\n<p>For faster inference without waiting in queue, you may duplicate the space and upgrade to GPU in settings. <a href="https://huggingface.co/spaces/{SPACE_ID}?duplicate=true"><img style="display: inline; margin-top: 0em; margin-bottom: 0em" src="https://bit.ly/3gLdBN6" alt="Duplicate Space" /></a></p>'
-
-if torch.cuda.is_available():
-    DESCRIPTION += '\n<p>Running on GPU 🔥</p>'
-else:
-    DESCRIPTION += '\n<p>Running on CPU 🥶 This demo does not work on CPU.'
+if not torch.cuda.is_available():
+    DESCRIPTION += '\n<p>Running on CPU 🥶 This demo does not work on CPU.</p>'
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
