@@ -10,6 +10,7 @@ app_file: app.py
 pinned: false
 license: bsd-3-clause
 duplicated_from: Salesforce/BLIP2
+suggested_hardware: a10g-small
 ---
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
