@@ -293,4 +293,4 @@ with gr.Blocks(css='style.css') as demo:
         queue=False,
     )
 
-demo.queue(api_open=False, max_size=10).launch()
+demo.queue(max_size=10).launch()
