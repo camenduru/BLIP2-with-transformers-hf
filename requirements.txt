@@ -1,9 +1,9 @@
 accelerate==0.20.3
 bitsandbytes==0.39.0
-gradio==3.34.0
-huggingface-hub==0.15.1
+gradio==3.36.1
+huggingface-hub==0.16.4
 Pillow==9.5.0
-scipy==1.10.1
+scipy==1.11.1
 torch==2.0.1
 torchvision==0.15.2
 transformers==4.30.2
